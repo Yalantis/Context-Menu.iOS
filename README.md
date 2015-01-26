@@ -9,18 +9,39 @@ Check this [project on Behance] (https://www.behance.net/gallery/20411445/Mobile
 
 ![ContextMenu](https://d13yacurqjgara.cloudfront.net/users/125056/screenshots/1785274/99miles-profile-light_1-1-4.gif)
 
-### Usage
+### Usage:
 
 You are welcome to see the sample of the project for fully operating sample in the Example folder.
 
-#### Add folder YALContextMenu to your project.
-#### `#import “YALContextContextMenu.h”` to your view controller
-#### Create custom UITableViewCell with UIView property for rotation animation and UIView property for fade out animation.
-#### Your custom cell should implement YALContextMenuCell protocol from YALContextContextMenu.
-#### Use the following code sample to start menu
+1. Add folder YALContextMenu to your project.
+2. `#import “YALContextContextMenu.h”` to your view controller
+3. Create custom UITableViewCell with UIView property for rotation animation and UIView property for fade out animation.
+4. Your custom cell should implement YALContextMenuCell protocol from YALContextContextMenu.
+5. Use the following code sample to start menu
 
+```objective-c
+- (IBAction)presentMenuButtonTapped:(UIBarButtonItem *)sender {
+    // init YALContextMenuTableView tableView
+    if (!self.contextMenuTableView) {
+        self.contextMenuTableView = [[YALContextMenuTableView alloc]initWithTableViewDelegateDataSource:self];
+        self.contextMenuTableView.animationDuration = 0.15;
+        //optional - implement custom YALContextMenuTableView custom protocol
+        self.contextMenuTableView.yalDelegate = self;
+        
+        //register nib
+        UINib *cellNib = [UINib nibWithNibName:@"ContextMenuCell" bundle:nil];
+        [self.contextMenuTableView registerNib:cellNib forCellReuseIdentifier:menuCellIdentifier];
+    }
 
-## License
+    // it is better to use this method only for proper animation
+    [self.contextMenuTableView showInView:self.navigationController.view withEdgeInsets:UIEdgeInsetsZero animated:YES];
+}
+```
+6. Use default UITableViewDataSource methods for additional set up and customisation of the cell.
+7. Сall updateAlongsideRotation method before the rotation animation started and reloadData method after rotation animation finished or in UIViewControllerTransitionCoordinator's "animateAlongsideTransition" block for proper rotation animation.
+ 
+
+### License
 
     Copyright 2015, Yalantis
 
