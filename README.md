@@ -9,6 +9,17 @@ Check this [project on Behance] (https://www.behance.net/gallery/20411445/Mobile
 
 ![ContextMenu](https://d13yacurqjgara.cloudfront.net/users/125056/screenshots/1785274/99miles-profile-light_1-1-4.gif)
 
+### Usage
+
+You are welcome to see the sample of the project for fully operating sample in the Example folder.
+
+#### Add folder YALContextMenu to your project.
+#### `#import “YALContextContextMenu.h”` to your view controller
+#### Create custom UITableViewCell with UIView property for rotation animation and UIView property for fade out animation.
+#### Your custom cell should implement YALContextMenuCell protocol from YALContextContextMenu.
+#### Use the following code sample to start menu
+
+
 ## License
 
     Copyright 2015, Yalantis
