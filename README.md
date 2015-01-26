@@ -39,7 +39,35 @@ You are welcome to see the sample of the project for fully operating sample in t
 ```
 
   * Use default UITableViewDataSource methods for additional set up and customisation of the cell.
-  * Сall updateAlongsideRotation method before the rotation animation started and reloadData method after rotation animation finished or in UIViewControllerTransitionCoordinator's "animateAlongsideTransition" block for proper rotation animation.
+  * Сall `updateAlongsideRotation` method before the rotation animation started and `reloadData` method after rotation animation finished or in UIViewControllerTransitionCoordinator's `animateAlongsideTransition` block for proper rotation animation.
+ 
+
+```objective-c
+ - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
+    //should be called after rotation animation completed
+    [self.contextMenuTableView reloadData];
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
+    [self.contextMenuTableView updateAlongsideRotation];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    
+    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        //should be called after rotation animation completed
+        [self.contextMenuTableView reloadData];
+    }];
+    [self.contextMenuTableView updateAlongsideRotation];
+    
+}
+```
  
 ### Customisation
 
