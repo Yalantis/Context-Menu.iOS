@@ -13,11 +13,11 @@ Check this [project on Behance] (https://www.behance.net/gallery/20411445/Mobile
 
 You are welcome to see the sample of the project for fully operating sample in the Example folder.
 
-1. Add folder YALContextMenu to your project.
-2. `#import “YALContextContextMenu.h”` to your view controller
-3. Create custom UITableViewCell with UIView property for rotation animation and UIView property for fade out animation.
-4. Your custom cell should implement YALContextMenuCell protocol from YALContextContextMenu.
-5. Use the following code sample to start menu 
+  * Add folder YALContextMenu to your project.
+  * `#import “YALContextContextMenu.h”` to your view controller
+  * Create custom UITableViewCell with UIView property for rotation animation and UIView property for fade out animation.
+  * Your custom cell should implement YALContextMenuCell protocol from YALContextContextMenu.
+  * Use the following code sample to start menu 
 
 ```objective-c
 - (IBAction)presentMenuButtonTapped:(UIBarButtonItem *)sender {
@@ -38,8 +38,8 @@ You are welcome to see the sample of the project for fully operating sample in t
 }
 ```
 
-6. Use default UITableViewDataSource methods for additional set up and customisation of the cell.
-7. Сall updateAlongsideRotation method before the rotation animation started and reloadData method after rotation animation finished or in UIViewControllerTransitionCoordinator's "animateAlongsideTransition" block for proper rotation animation.
+  * Use default UITableViewDataSource methods for additional set up and customisation of the cell.
+  * Сall updateAlongsideRotation method before the rotation animation started and reloadData method after rotation animation finished or in UIViewControllerTransitionCoordinator's "animateAlongsideTransition" block for proper rotation animation.
  
 ### Customisation
 
