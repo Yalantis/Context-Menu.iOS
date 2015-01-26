@@ -16,7 +16,17 @@ You are welcome to see the sample of the project for fully operating sample in t
   * Add folder YALContextMenu to your project.
   * `#import “YALContextContextMenu.h”` to your view controller
   * Create custom UITableViewCell with UIView property for rotation animation and UIView property for fade out animation.
-  * Your custom cell should implement YALContextMenuCell protocol from YALContextContextMenu.
+  * Your custom cell should implement YALContextMenuCell protocol
+
+```objective-c
+@protocol YALContextMenuCell <NSObject>
+
+- (UIView *)animatedIcon;
+- (UIView *)animatedContent;
+
+@end
+```
+
   * Use the following code sample to start menu 
 
 ```objective-c
@@ -30,7 +40,7 @@ You are welcome to see the sample of the project for fully operating sample in t
         
         //register nib
         UINib *cellNib = [UINib nibWithNibName:@"ContextMenuCell" bundle:nil];
-        [self.contextMenuTableView registerNib:cellNib forCellReuseIdentifier:menuCellIdentifier];
+        [self.contextMenuTableView registerNib:cellNib forCellReuseIdentifier:@"contextMenuCellReuseId"];
     }
 
     // it is better to use this method only for proper animation
