@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="rotationCell" id="KGk-i7-Jjw" customClass="ContextMenuCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LikeIcn" translatesAutoresizingMaskIntoConstraints="NO" id="x5n-ji-Tg4">
+                        <rect key="frame" x="254" y="0.0" width="66" height="66"/>
+                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="x5n-ji-Tg4" secondAttribute="height" multiplier="1:1" id="GWs-T1-DQU"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxD-XJ-YMF">
+                        <rect key="frame" x="8" y="11" width="226" height="43"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="x5n-ji-Tg4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="RVZ-Bf-vpn"/>
+                    <constraint firstItem="x5n-ji-Tg4" firstAttribute="leading" secondItem="JxD-XJ-YMF" secondAttribute="trailing" constant="20" id="Ukn-lx-XUA"/>
+                    <constraint firstItem="JxD-XJ-YMF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="V3l-El-ITM"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="JxD-XJ-YMF" secondAttribute="bottom" constant="3.5" id="drT-Al-Cvf"/>
+                    <constraint firstAttribute="bottom" secondItem="x5n-ji-Tg4" secondAttribute="bottom" id="fnH-Sr-EXa"/>
+                    <constraint firstAttribute="trailing" secondItem="x5n-ji-Tg4" secondAttribute="trailing" id="pf6-3c-qc6"/>
+                    <constraint firstItem="JxD-XJ-YMF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="xtQ-00-x6R"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="menuImageView" destination="x5n-ji-Tg4" id="oIt-h1-n3F"/>
+                <outlet property="menuTitleLabel" destination="JxD-XJ-YMF" id="3VC-ug-UhC"/>
+            </connections>
+            <point key="canvasLocation" x="235" y="399"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="LikeIcn" width="32" height="32"/>
+    </resources>
+</document>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="buo-es-Y5h">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <scenes>
+        <!--Samantha-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Photo" translatesAutoresizingMaskIntoConstraints="NO" id="ONV-Ho-D5n">
+                                <rect key="frame" x="0.0" y="44" width="600" height="200"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="t6Z-2S-j8x"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gN-r7-AnJ">
+                                <rect key="frame" x="10" y="269" width="600" height="31.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="Q7w-eh-tzF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZH-yZ-0mA">
+                                <rect key="frame" x="10" y="312.5" width="580" height="277.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="3gN-r7-AnJ" firstAttribute="top" secondItem="ONV-Ho-D5n" secondAttribute="bottom" constant="25" id="3sH-36-aHQ"/>
+                            <constraint firstItem="ONV-Ho-D5n" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="727-Pi-1p1"/>
+                            <constraint firstAttribute="trailing" secondItem="nZH-yZ-0mA" secondAttribute="trailing" constant="10" id="AlR-Rb-PNK"/>
+                            <constraint firstItem="3gN-r7-AnJ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="IgI-A4-M8a"/>
+                            <constraint firstItem="3gN-r7-AnJ" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailing" constant="10" id="Pgt-oz-T1T"/>
+                            <constraint firstAttribute="trailing" secondItem="ONV-Ho-D5n" secondAttribute="trailing" id="QuR-T0-3lK"/>
+                            <constraint firstItem="nZH-yZ-0mA" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="f18-1u-ilC"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="nZH-yZ-0mA" secondAttribute="bottom" constant="10" id="qWB-Nd-CNP"/>
+                            <constraint firstItem="nZH-yZ-0mA" firstAttribute="top" secondItem="3gN-r7-AnJ" secondAttribute="bottom" constant="12" id="u8z-SX-q0N"/>
+                            <constraint firstItem="ONV-Ho-D5n" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="xRh-dx-ZMR"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Samantha" id="WkC-v3-EUp">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ZQl-11-1oU">
+                            <connections>
+                                <action selector="presentMenuButtonTapped:" destination="vXZ-lx-hvc" id="rt1-GS-bdr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2395" y="287"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ihU-h1-iq9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="buo-es-Y5h" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lrR-Le-siU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="5Rd-b4-CYI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w4D-CI-BpC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1583" y="287"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Photo" width="360" height="200"/>
+    </resources>
+</document>
