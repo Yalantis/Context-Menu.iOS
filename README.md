@@ -17,9 +17,7 @@ You are welcome to see the sample of the project for fully operating sample in t
 2. `#import “YALContextContextMenu.h”` to your view controller
 3. Create custom UITableViewCell with UIView property for rotation animation and UIView property for fade out animation.
 4. Your custom cell should implement YALContextMenuCell protocol from YALContextContextMenu.
-5. Use the following code sample to start menu 
-
-```objective-c
+5. Use the following code sample to start menu ```objective-c
 - (IBAction)presentMenuButtonTapped:(UIBarButtonItem *)sender {
     // init YALContextMenuTableView tableView
     if (!self.contextMenuTableView) {
@@ -48,7 +46,7 @@ animationDuration is to be used for animation speed in seconds.
 
 ### Compatibility
 
-iOS 7
+iOS 7,
 iOS 8
 
 #### Version: 1.0
