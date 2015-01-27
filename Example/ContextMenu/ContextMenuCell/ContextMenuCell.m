@@ -15,6 +15,7 @@
 @implementation ContextMenuCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.layer.masksToBounds = YES;
     self.layer.shadowOffset = CGSizeMake(0, 2);
