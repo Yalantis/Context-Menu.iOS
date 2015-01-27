@@ -14,7 +14,7 @@ Check this [project on Behance] (https://www.behance.net/gallery/20411445/Mobile
 You are welcome to see the sample of the project for fully operating sample in the Example folder.
 
   * Add folder YALContextMenu to your project.
-  * `#import “YALContextContextMenu.h”` to your view controller
+  * `#import “YALContextMenuTableView.h”` to your view controller
   * Create custom UITableViewCell with UIView property for rotation animation and UIView property for fade out animation.
   * Your custom cell should implement YALContextMenuCell protocol
 
