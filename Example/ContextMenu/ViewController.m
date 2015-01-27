@@ -109,7 +109,7 @@ static NSString *const menuCellIdentifier = @"rotationCell";
 
 #pragma mark - YALContextMenuTableViewDelegate
 
-- (void)didDismissWithIndexPath:(NSIndexPath*)indexPath {
+- (void)contextMenuTableView:(YALContextMenuTableView *)contextMenuTableView didDismissWithIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"Menu dismissed with indexpath = %@", indexPath);
 }
 
