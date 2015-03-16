@@ -132,6 +132,7 @@ static NSString *const menuCellIdentifier = @"rotationCell";
     ContextMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:menuCellIdentifier forIndexPath:indexPath];
     
     if (cell) {
+        cell.backgroundColor = [UIColor clearColor];
         cell.menuTitleLabel.text = [self.menuTitles objectAtIndex:indexPath.row];
         cell.menuImageView.image = [self.menuIcons objectAtIndex:indexPath.row];
     }
