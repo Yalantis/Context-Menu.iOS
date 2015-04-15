@@ -9,7 +9,12 @@ Check this [project on Behance] (https://www.behance.net/gallery/20411445/Mobile
 
 ![ContextMenu](https://d13yacurqjgara.cloudfront.net/users/125056/screenshots/1785274/99miles-profile-light_1-1-4.gif)
 
-### Usage:
+####[CocoaPods](http://cocoapods.org)
+```ruby
+pod 'ContextMenu.iOS', '~> 1.0.0'
+```
+
+####Usage
 
 You are welcome to see the sample of the project for fully operating sample in the Example folder.
 
