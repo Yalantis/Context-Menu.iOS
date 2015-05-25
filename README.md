@@ -1,7 +1,7 @@
 # Context-Menu.iOS
 
 #### You can easily add awesome animated context menu to  your app.
-Made in [Yalantis] (http://yalantis.com/)
+Made in [![Yalantis](https://raw.githubusercontent.com/Yalantis/FoldingTabBar.iOS/master/Example/Example/Resources/Images/badge_orage_shadow.png)](http://yalantis.com/?utm_source=github)
 
 Check this [project on dribbble] (https://dribbble.com/shots/1785274-Menu-Animation-for-Additional-Functions?list=users&offset=17)
 
