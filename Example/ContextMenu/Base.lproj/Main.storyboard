@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="buo-es-Y5h">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="buo-es-Y5h">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
         <!--Samantha-->
@@ -30,7 +30,7 @@
                                     <constraint firstAttribute="height" constant="32" id="Q7w-eh-tzF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZH-yZ-0mA">
@@ -41,6 +41,17 @@
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iAa-Tq-qsp">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="VFs-jb-owL"/>
+                                    <barButtonItem systemItem="add" id="Vs9-1D-Vjb">
+                                        <connections>
+                                            <action selector="presentMenuFromBottomTapped:" destination="vXZ-lx-hvc" id="gMR-Us-Y7p"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -50,8 +61,11 @@
                             <constraint firstItem="3gN-r7-AnJ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="IgI-A4-M8a"/>
                             <constraint firstItem="3gN-r7-AnJ" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailing" constant="10" id="Pgt-oz-T1T"/>
                             <constraint firstAttribute="trailing" secondItem="ONV-Ho-D5n" secondAttribute="trailing" id="QuR-T0-3lK"/>
+                            <constraint firstAttribute="trailing" secondItem="iAa-Tq-qsp" secondAttribute="trailing" id="Ufe-IT-Y3M"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="iAa-Tq-qsp" secondAttribute="bottom" id="VSs-jJ-jFM"/>
                             <constraint firstItem="nZH-yZ-0mA" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="f18-1u-ilC"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="nZH-yZ-0mA" secondAttribute="bottom" constant="10" id="qWB-Nd-CNP"/>
+                            <constraint firstItem="iAa-Tq-qsp" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="rXv-UI-ApR"/>
                             <constraint firstItem="nZH-yZ-0mA" firstAttribute="top" secondItem="3gN-r7-AnJ" secondAttribute="bottom" constant="12" id="u8z-SX-q0N"/>
                             <constraint firstItem="ONV-Ho-D5n" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="xRh-dx-ZMR"/>
                         </constraints>

@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, OpeningDirection) {
+    topToBottom,
+    bottomToTop
+};
+
 @class YALContextMenuTableView;
 
 @protocol YALContextMenuTableViewDelegate <NSObject>
@@ -43,7 +48,7 @@
  
  @return YALTableView object or nil
 */
-- (instancetype)initWithTableViewDelegateDataSource:(id<UITableViewDelegate, UITableViewDataSource>)delegateDataSource;
+- (instancetype)initWithTableViewDelegateDataSource:(id<UITableViewDelegate, UITableViewDataSource>)delegateDataSource direction:(OpeningDirection)direction;
 
 /*!
  @abstract

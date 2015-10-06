@@ -73,17 +73,31 @@ static NSString *const menuCellIdentifier = @"rotationCell";
 
 - (IBAction)presentMenuButtonTapped:(UIBarButtonItem *)sender {
     // init YALContextMenuTableView tableView
-    if (!self.contextMenuTableView) {
-        self.contextMenuTableView = [[YALContextMenuTableView alloc]initWithTableViewDelegateDataSource:self];
-        self.contextMenuTableView.animationDuration = 0.15;
-        //optional - implement custom YALContextMenuTableView custom protocol
-        self.contextMenuTableView.yalDelegate = self;
-        
-        //register nib
-        UINib *cellNib = [UINib nibWithNibName:@"ContextMenuCell" bundle:nil];
-        [self.contextMenuTableView registerNib:cellNib forCellReuseIdentifier:menuCellIdentifier];
-    }
+    self.contextMenuTableView = [[YALContextMenuTableView alloc]initWithTableViewDelegateDataSource:self direction:topToBottom];
+    self.contextMenuTableView.animationDuration = (0.3/self.menuTitles.count);
+    //optional - implement custom YALContextMenuTableView custom protocol
+    self.contextMenuTableView.yalDelegate = self;
+    
+    //register nib
+    UINib *cellNib = [UINib nibWithNibName:@"ContextMenuCell" bundle:nil];
+    [self.contextMenuTableView registerNib:cellNib forCellReuseIdentifier:menuCellIdentifier];
 
+    // it is better to use this method only for proper animation
+    [self.contextMenuTableView showInView:self.navigationController.view withEdgeInsets:UIEdgeInsetsZero animated:YES];
+}
+
+- (IBAction)presentMenuFromBottomTapped:(id)sender
+{
+    // init YALContextMenuTableView tableView
+    self.contextMenuTableView = [[YALContextMenuTableView alloc]initWithTableViewDelegateDataSource:self direction:bottomToTop];
+    self.contextMenuTableView.animationDuration = (0.3/self.menuTitles.count);
+    //optional - implement custom YALContextMenuTableView custom protocol
+    self.contextMenuTableView.yalDelegate = self;
+    
+    //register nib
+    UINib *cellNib = [UINib nibWithNibName:@"ContextMenuCell" bundle:nil];
+    [self.contextMenuTableView registerNib:cellNib forCellReuseIdentifier:menuCellIdentifier];
+    
     // it is better to use this method only for proper animation
     [self.contextMenuTableView showInView:self.navigationController.view withEdgeInsets:UIEdgeInsetsZero animated:YES];
 }
@@ -116,7 +130,7 @@ static NSString *const menuCellIdentifier = @"rotationCell";
 #pragma mark - UITableViewDataSource, UITableViewDelegate
 
 - (void)tableView:(YALContextMenuTableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView dismisWithIndexPath:indexPath];
+    [tableView dismisWithIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -129,7 +143,7 @@ static NSString *const menuCellIdentifier = @"rotationCell";
 
 - (UITableViewCell *)tableView:(YALContextMenuTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    ContextMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:menuCellIdentifier forIndexPath:indexPath];
+    ContextMenuCell *cell = [self.contextMenuTableView dequeueReusableCellWithIdentifier:menuCellIdentifier forIndexPath:indexPath];
     
     if (cell) {
         cell.backgroundColor = [UIColor clearColor];
