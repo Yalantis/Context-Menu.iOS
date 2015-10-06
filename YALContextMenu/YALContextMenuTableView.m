@@ -18,9 +18,9 @@ static CGPoint const defaultViewAnchorPoint =  {0.5f, 0.5f};
 typedef void(^completionBlock)(BOOL completed);
 
 typedef NS_ENUM(NSUInteger, Direction) {
-    right,
     top,
-    bottom
+    bottom,
+    right
 };
 
 typedef NS_ENUM(NSUInteger, AnimatingState) {
@@ -37,6 +37,7 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
 @property (nonatomic, strong) NSMutableArray *bottomCells;
 @property (nonatomic, strong) UITableViewCell<YALContextMenuCell> *selectedCell;
 @property (nonatomic, strong) NSIndexPath *dismissalIndexpath;
+@property (nonatomic) OpeningDirection openingDirection;
 @property (nonatomic) AnimatingState animatingState;
 
 @end
@@ -45,9 +46,13 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
 
 #pragma mark - Init
 
-- (instancetype)initWithTableViewDelegateDataSource:(id<UITableViewDelegate, UITableViewDataSource>)delegateDataSource {
+- (instancetype)initWithTableViewDelegateDataSource:(id<UITableViewDelegate, UITableViewDataSource>)delegateDataSource direction:(OpeningDirection)direction {
     self = [self init];
     if (self) {
+        self.openingDirection = direction;
+        if (self.openingDirection == bottomToTop) {
+            self.transform = CGAffineTransformMakeRotation(-M_PI);
+        }
         self.delegate = delegateDataSource;
         self.dataSource = delegateDataSource;
     }
@@ -156,7 +161,9 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
     if (visibleCells.count == 0 || self.animatingIndex == visibleCells.count) {
         self.animatingIndex = 0;
         [self setUserInteractionEnabled:YES];
-        [self reloadData];
+        if (self.openingDirection == topToBottom) {
+            [self reloadData];
+        }
         self.animatingState = Stable;
         return;
     }
@@ -165,7 +172,7 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
     if (visibleCell) {
         [self prepareCellForShowAnimation:visibleCell];
         [visibleCell contentView].hidden = NO;
-        Direction direction = ([visibleCells indexOfObject:visibleCell] == 0) ? right : top;
+        Direction direction = ([visibleCells indexOfObject:visibleCell] == 0) ? right : (Direction)self.openingDirection;
         
         [self show:show cell:visibleCell animated:animated direction:direction clockwise:NO completion:^(BOOL completed) {
             if (completed) {
@@ -313,6 +320,9 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
 - (id)dequeueReusableCellWithIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell<YALContextMenuCell> *cell = [super dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    if (self.openingDirection == bottomToTop) {
+        cell.transform = CGAffineTransformMakeRotation(M_PI);
+    }
     
     [self resetAnimatedIconForCell:cell];
     
