@@ -151,9 +151,11 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
 #pragma mark - Private
 
 - (void)show:(BOOL)show visibleCellsAnimated:(BOOL)animated {
-    NSArray *visibleCells = [self visibleCells];
+    NSArray *visibleCellsIndexPahts = [self indexPathsForVisibleRows];
+    NSInteger firstVisibleRowIndex = [(NSIndexPath *)visibleCellsIndexPahts.firstObject row];
+    NSInteger lastVisibleRowIndex = [(NSIndexPath *)visibleCellsIndexPahts.lastObject row];
     
-    if (visibleCells.count == 0 || self.animatingIndex == visibleCells.count) {
+    if (visibleCellsIndexPahts.count == 0 || self.animatingIndex > lastVisibleRowIndex) {
         self.animatingIndex = 0;
         [self setUserInteractionEnabled:YES];
         [self reloadData];
@@ -161,18 +163,22 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
         return;
     }
     
-    UITableViewCell<YALContextMenuCell> *visibleCell = [visibleCells objectAtIndex:self.animatingIndex];
+    NSIndexPath *animatingIndexPath = [NSIndexPath indexPathForRow:self.animatingIndex inSection:0];
+    UITableViewCell<YALContextMenuCell> *visibleCell = (UITableViewCell<YALContextMenuCell> *)[self cellForRowAtIndexPath:animatingIndexPath];
     if (visibleCell) {
         [self prepareCellForShowAnimation:visibleCell];
         [visibleCell contentView].hidden = NO;
-        Direction direction = ([visibleCells indexOfObject:visibleCell] == 0) ? right : top;
+        Direction direction = (self.animatingIndex == firstVisibleRowIndex) ? right : top;
         
         [self show:show cell:visibleCell animated:animated direction:direction clockwise:NO completion:^(BOOL completed) {
-            if (completed) {
-                self.animatingIndex++;
-                [self show:show visibleCellsAnimated:animated];
-            }
+            // ignore flag 'completed', cause if user scroll out animating cell, it will be false and menu will be empty(
+            self.animatingIndex++;
+            [self show:show visibleCellsAnimated:animated];
         }];
+    } else {
+        // user scroolled animatingCell, so animate from first visible again
+        self.animatingIndex = firstVisibleRowIndex;
+        [self show:show visibleCellsAnimated:animated];
     }
 }
 
