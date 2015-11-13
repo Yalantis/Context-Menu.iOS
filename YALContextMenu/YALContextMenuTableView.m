@@ -69,7 +69,7 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
 }
 
 #pragma mark - Show / Dismiss
-- (void)showInView:(UIView *)superview withEdgeInsets:(UIEdgeInsets)edgeInsets animated:(BOOL)animated {
+- (void)showInView:(UIView *)superview withEdgeInsets:(UIEdgeInsets)edgeInsets withContentOffset:(CGPoint)contentOffset animated:(BOOL)animated {
     
     if (self.animatingState!=Stable) {
         return;
@@ -94,6 +94,7 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
         } completion:^(BOOL finished) {
             [self show:YES visibleCellsAnimated:YES];
             [self setUserInteractionEnabled:YES];
+            self.contentOffset = contentOffset;
         }];
         
     } else {
