@@ -131,8 +131,13 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
         }
     }
     
-    [self dismissTopCells];
-    [self dismissBottomCells];
+    //if menu contains only one item, then we need to dismiss the view.
+    if (self.topCells.count || self.bottomCells.count) {
+        [self dismissTopCells];
+        [self dismissBottomCells];
+    } else {
+        [self shouldDismissSelf];
+    }
 }
 
 
