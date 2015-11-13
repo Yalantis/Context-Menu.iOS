@@ -133,6 +133,7 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
     
     [self dismissTopCells];
     [self dismissBottomCells];
+    [self shouldDismissSelf];
 }
 
 
