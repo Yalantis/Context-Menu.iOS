@@ -39,7 +39,6 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
 @property (nonatomic, strong) UITableViewCell<YALContextMenuCell> *selectedCell;
 @property (nonatomic, strong) NSIndexPath *dismissalIndexpath;
 @property (nonatomic) AnimatingState animatingState;
-@property (nonatomic) YALPresenationType presentationType;
 
 @end
 
@@ -62,7 +61,8 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
         self.animatingState = Stable;
         self.animationDuration = defaultDuration;
         self.animatingIndex = 0;
-        self.presentationType = YALPresenationTypeRightToLeft;
+        self.menuItemsSide = Right;
+        self.menuItemsAppearanceDirection = FromTopToBottom;
         
         self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7f];
         self.separatorColor = [UIColor colorWithRed:181.0/255.0 green:181.0/255.0 blue:181.0/255.0 alpha:0];
@@ -72,9 +72,7 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
 }
 
 #pragma mark - Show / Dismiss
-- (void)showInView:(UIView *)superview presentationType:(YALPresenationType)presentationType withEdgeInsets:(UIEdgeInsets)edgeInsets animated:(BOOL)animated {
-    self.presentationType = presentationType;
-    
+- (void)showInView:(UIView *)superview withEdgeInsets:(UIEdgeInsets)edgeInsets animated:(BOOL)animated {
     if (self.animatingState!=Stable) {
         return;
     }
@@ -173,7 +171,12 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
     if (visibleCell) {
         [self prepareCellForShowAnimation:visibleCell];
         [visibleCell contentView].hidden = NO;
-        Direction direction = (self.animatingIndex == firstVisibleRowIndex) ? [self directionForPresentation] : top;
+        Direction direction;
+        if (self.animatingIndex == firstVisibleRowIndex) {
+            direction = self.menuItemsSide == Right ? right : left;
+        } else {
+            direction = self.menuItemsAppearanceDirection == FromBottomToTop ? bottom : top;
+        }
         
         [self show:show cell:visibleCell animated:animated direction:direction clockwise:NO completion:^(BOOL completed) {
             // ignore flag 'completed', cause if user scroll out animating cell, it will be false and menu will be empty(
@@ -190,7 +193,11 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
 - (void)dismissBottomCells {
     if (self.bottomCells.count) {
         UITableViewCell<YALContextMenuCell> *hidingCell = [self.bottomCells lastObject];
-        [self show:NO cell:hidingCell animated:YES direction:top clockwise:NO completion:^(BOOL completed) {
+        [self show:NO
+              cell:hidingCell
+          animated:YES
+         direction:self.menuItemsAppearanceDirection == FromBottomToTop ? bottom : top
+         clockwise:self.menuItemsAppearanceDirection == FromBottomToTop ? YES : NO completion:^(BOOL completed) {
              if (completed) {
                  [self.bottomCells removeLastObject];
                  [self dismissBottomCells];
@@ -203,7 +210,11 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
 - (void)dismissTopCells {
     if (self.topCells.count) {
         UITableViewCell<YALContextMenuCell> *hidingCell = [self.topCells firstObject];
-        [self show:NO cell:hidingCell animated:YES direction:bottom clockwise:YES completion:^(BOOL completed) {
+        [self show:NO
+              cell:hidingCell
+          animated:YES
+         direction:self.menuItemsAppearanceDirection == FromBottomToTop ? top : bottom
+         clockwise:self.menuItemsAppearanceDirection == FromBottomToTop ? NO : YES completion:^(BOOL completed) {
              if (completed) {
                  [self.topCells removeObjectAtIndex:0];
                  [self dismissTopCells];
@@ -214,8 +225,8 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
 }
 
 - (void)dismissSelf {
-    Direction direction = [self directionForPresentation];
-    BOOL clockwise = [self clockwiseRotationForPresentation];
+    Direction direction = self.menuItemsSide == Right ? right : left;
+    BOOL clockwise = self.menuItemsSide == Right ? NO : YES;
         [self show:NO cell:self.selectedCell animated:YES direction:direction clockwise:clockwise completion:^(BOOL completed) {
          [self removeFromSuperview];
         if ([self.yalDelegate respondsToSelector:@selector(contextMenuTableView:didDismissWithIndexPath:)]) {
@@ -237,8 +248,15 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
     
     [self resetAnimatedIconForCell:cell];
     
-    Direction direction = ([self indexPathForCell:cell].row == 0) ? [self directionForPresentation] : top;
-    BOOL clockwise = ([self indexPathForCell:cell].row == 0) ? [self clockwiseRotationForPresentation] : NO;
+    Direction direction;
+    BOOL clockwise;
+    if ([self indexPathForCell:cell].row == 0) {
+        direction = self.menuItemsSide == Right ? right : left;
+        clockwise = self.menuItemsSide == Right ? NO : YES;
+    } else {
+        direction = self.menuItemsAppearanceDirection == FromBottomToTop ? bottom : top;
+        clockwise = self.menuItemsAppearanceDirection == FromBottomToTop ? YES : NO;
+    }
     
     [self show:NO cell:cell animated:NO direction:direction clockwise:clockwise completion:nil];
 }
@@ -342,6 +360,9 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
             [cell contentView].hidden = NO;
             [cell animatedContent].alpha = 1;
         }
+        if (self.menuItemsAppearanceDirection == FromBottomToTop) {
+            cell.layer.transform = CATransform3DRotate(CATransform3DIdentity, M_PI, 0.0f, 0.0f, 1.0f);
+        }
     }
     return cell;
 }
@@ -375,29 +396,13 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
     view.layer.anchorPoint = anchorPoint;
 }
 
-- (Direction)directionForPresentation {
-    //Logic will be added
-    switch (self.presentationType) {
-        case YALPresenationTypeRightToLeft:
-            return right;
-            break;
-        case YALPresenationTypeLeftToRight:
-            return left;
-            break;
+#pragma mark - Setters
+- (void)setMenuItemsAppearanceDirection:(MenuItemsAppearanceDirection)menuItemsAppearanceDirection {
+    if (menuItemsAppearanceDirection != _menuItemsAppearanceDirection) {
+        _menuItemsAppearanceDirection = menuItemsAppearanceDirection;
+        if (self.menuItemsAppearanceDirection == FromBottomToTop) {
+            self.layer.transform = CATransform3DRotate(CATransform3DIdentity, M_PI, 0.0f, 0.0f, 1.0f);
+        }
     }
 }
-
-- (BOOL)clockwiseRotationForPresentation {
-    //Logic will be added
-    Direction direction = [self directionForPresentation];
-        switch (direction) {
-            case left:
-                return YES;
-                break;
-            default:
-                return NO;
-                break;
-        }
-}
-
 @end
