@@ -18,6 +18,7 @@ static CGPoint const defaultViewAnchorPoint =  {0.5f, 0.5f};
 typedef void(^completionBlock)(BOOL completed);
 
 typedef NS_ENUM(NSUInteger, Direction) {
+    left,
     right,
     top,
     bottom
@@ -38,6 +39,7 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
 @property (nonatomic, strong) UITableViewCell<YALContextMenuCell> *selectedCell;
 @property (nonatomic, strong) NSIndexPath *dismissalIndexpath;
 @property (nonatomic) AnimatingState animatingState;
+@property (nonatomic) YALPresenationType presentationType;
 
 @end
 
@@ -60,6 +62,7 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
         self.animatingState = Stable;
         self.animationDuration = defaultDuration;
         self.animatingIndex = 0;
+        self.presentationType = YALPresenationTypeRightToLeft;
         
         self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7f];
         self.separatorColor = [UIColor colorWithRed:181.0/255.0 green:181.0/255.0 blue:181.0/255.0 alpha:0];
@@ -69,7 +72,8 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
 }
 
 #pragma mark - Show / Dismiss
-- (void)showInView:(UIView *)superview withEdgeInsets:(UIEdgeInsets)edgeInsets animated:(BOOL)animated {
+- (void)showInView:(UIView *)superview presentationType:(YALPresenationType)presentationType withEdgeInsets:(UIEdgeInsets)edgeInsets animated:(BOOL)animated {
+    self.presentationType = presentationType;
     
     if (self.animatingState!=Stable) {
         return;
@@ -169,7 +173,7 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
     if (visibleCell) {
         [self prepareCellForShowAnimation:visibleCell];
         [visibleCell contentView].hidden = NO;
-        Direction direction = (self.animatingIndex == firstVisibleRowIndex) ? right : top;
+        Direction direction = (self.animatingIndex == firstVisibleRowIndex) ? [self directionForPresentation] : top;
         
         [self show:show cell:visibleCell animated:animated direction:direction clockwise:NO completion:^(BOOL completed) {
             // ignore flag 'completed', cause if user scroll out animating cell, it will be false and menu will be empty(
@@ -210,7 +214,9 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
 }
 
 - (void)dismissSelf {
-    [self show:NO cell:self.selectedCell animated:YES direction:right clockwise:NO completion:^(BOOL completed) {
+    Direction direction = [self directionForPresentation];
+    BOOL clockwise = [self clockwiseRotationForPresentation];
+        [self show:NO cell:self.selectedCell animated:YES direction:direction clockwise:clockwise completion:^(BOOL completed) {
          [self removeFromSuperview];
         if ([self.yalDelegate respondsToSelector:@selector(contextMenuTableView:didDismissWithIndexPath:)]) {
             [self.yalDelegate contextMenuTableView:self didDismissWithIndexPath:[self indexPathForCell:self.selectedCell]];
@@ -231,9 +237,10 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
     
     [self resetAnimatedIconForCell:cell];
     
-    Direction direction = ([self indexPathForCell:cell].row == 0) ? right : top;
+    Direction direction = ([self indexPathForCell:cell].row == 0) ? [self directionForPresentation] : top;
+    BOOL clockwise = ([self indexPathForCell:cell].row == 0) ? [self clockwiseRotationForPresentation] : NO;
     
-    [self show:NO cell:cell animated:NO direction:direction clockwise:NO completion:nil];
+    [self show:NO cell:cell animated:NO direction:direction clockwise:clockwise completion:nil];
 }
 
 /*!
@@ -276,6 +283,11 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
     }
     
     switch (direction) {
+        case left: {
+            [self setAnchorPoint:CGPointMake(0, 0.5) forView:icon];
+            rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, DEGREES_TO_RADIANS(rotation), 0.0f, 1.0f, 0.0f);
+            break;
+        }
         case right: {
             [self setAnchorPoint:CGPointMake(1, 0.5) forView:icon];
             rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, DEGREES_TO_RADIANS(rotation), 0.0f, 1.0f, 0.0f);
@@ -326,8 +338,7 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
     if (cell) {
         if (self.animatingState==Showing) {
             [cell contentView].hidden = YES;
-        }else if (self.animatingState==Stable)
-        {
+        } else if (self.animatingState==Stable) {
             [cell contentView].hidden = NO;
             [cell animatedContent].alpha = 1;
         }
@@ -362,6 +373,31 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
     
     view.layer.position = position;
     view.layer.anchorPoint = anchorPoint;
+}
+
+- (Direction)directionForPresentation {
+    //Logic will be added
+    switch (self.presentationType) {
+        case YALPresenationTypeRightToLeft:
+            return right;
+            break;
+        case YALPresenationTypeLeftToRight:
+            return left;
+            break;
+    }
+}
+
+- (BOOL)clockwiseRotationForPresentation {
+    //Logic will be added
+    Direction direction = [self directionForPresentation];
+        switch (direction) {
+            case left:
+                return YES;
+                break;
+            default:
+                return NO;
+                break;
+        }
 }
 
 @end

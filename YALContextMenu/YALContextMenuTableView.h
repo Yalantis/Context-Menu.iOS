@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, YALPresenationType) {
+    YALPresenationTypeRightToLeft,
+    YALPresenationTypeLeftToRight
+};
+
 @class YALContextMenuTableView;
 
 @protocol YALContextMenuTableViewDelegate <NSObject>
@@ -51,9 +56,11 @@
  
  @param Superview to present your menu. If you are using a navigation controller it is better to use myViewController.navigationController.view as a suoerview.
  
+ @param presentationType depends on position of your cell's animatedIcon(On the right side of the screen - YALPresenationTypeRightToLeft, otherwise - YALPresenationTypeLeftToRight). Default is YALPresenationTypeRightToLeft.
+
  @param YES or NO weather you want appearance animated or not.
  */
-- (void)showInView:(UIView *)superview withEdgeInsets:(UIEdgeInsets)edgeInsets animated:(BOOL)animated;
+- (void)showInView:(UIView *)superview presentationType:(YALPresenationType)presentationType withEdgeInsets:(UIEdgeInsets)edgeInsets animated:(BOOL)animated;
 
 /*!
  @abstract
