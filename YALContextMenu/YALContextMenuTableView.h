@@ -44,10 +44,13 @@ typedef NS_ENUM(NSInteger, MenuItemsAppearanceDirection) {
 /*! @abstract animationDuration time for animation in seconds*/
 @property (nonatomic) CGFloat animationDuration;
 
-/*! The side of the screen to which menu items are related(For example, if 'right' chosen then first cell will be opened from right to left and counterclockwise and menu will be closed clockwise). Default - Right.*/
+/*! The side of the screen to which menu items are related.
+ When it set to 'Right' the first cell will be opened from right to left and selected cell will be closed from left to right.
+ When it set to 'Left' the first cell will be opened from left to right and selected cell will be closed from right to left.
+ Default - Right.*/
 @property (nonatomic) MenuItemsSide menuItemsSide;
 
-/*! @abstract Direction if menu item appearence. Default - FromTopToBottom.*/
+/*! Direction of menu item appearence. Default - FromTopToBottom.*/
 @property (nonatomic) MenuItemsAppearanceDirection menuItemsAppearanceDirection;
 
 /*!

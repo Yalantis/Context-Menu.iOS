@@ -197,13 +197,14 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
               cell:hidingCell
           animated:YES
          direction:self.menuItemsAppearanceDirection == FromBottomToTop ? bottom : top
-         clockwise:self.menuItemsAppearanceDirection == FromBottomToTop ? YES : NO completion:^(BOOL completed) {
-             if (completed) {
-                 [self.bottomCells removeLastObject];
-                 [self dismissBottomCells];
-                 [self shouldDismissSelf];
-             }
-         }];
+         clockwise:self.menuItemsAppearanceDirection == FromBottomToTop ? YES : NO
+        completion:^(BOOL completed) {
+            if (completed) {
+                [self.bottomCells removeLastObject];
+                [self dismissBottomCells];
+                [self shouldDismissSelf];
+            }
+        }];
     }
 }
 
@@ -214,13 +215,14 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
               cell:hidingCell
           animated:YES
          direction:self.menuItemsAppearanceDirection == FromBottomToTop ? top : bottom
-         clockwise:self.menuItemsAppearanceDirection == FromBottomToTop ? NO : YES completion:^(BOOL completed) {
-             if (completed) {
-                 [self.topCells removeObjectAtIndex:0];
-                 [self dismissTopCells];
-                 [self shouldDismissSelf];
-             }
-         }];
+         clockwise:self.menuItemsAppearanceDirection == FromBottomToTop ? NO : YES
+        completion:^(BOOL completed) {
+            if (completed) {
+                [self.topCells removeObjectAtIndex:0];
+                [self dismissTopCells];
+                [self shouldDismissSelf];
+            }
+        }];
     }
 }
 
