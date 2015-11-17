@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, MenuItemsSide) {
+    Left,
+    Right
+};
+
+typedef NS_ENUM(NSInteger, MenuItemsAppearanceDirection) {
+    FromTopToBottom,
+    FromBottomToTop
+};
+
 @class YALContextMenuTableView;
 
 @protocol YALContextMenuTableViewDelegate <NSObject>
@@ -29,11 +39,19 @@
 
 @interface YALContextMenuTableView : UITableView
 
-@property (nonatomic, weak) id<YALContextMenuTableViewDelegate>yalDelegate;
+@property (nonatomic, weak) id <YALContextMenuTableViewDelegate> yalDelegate;
 
 /*! @abstract animationDuration time for animation in seconds*/
 @property (nonatomic) CGFloat animationDuration;
 
+/*! The side of the screen to which menu items are related.
+ When it set to 'Right' the first cell will be opened from right to left and selected cell will be closed from left to right.
+ When it set to 'Left' the first cell will be opened from left to right and selected cell will be closed from right to left.
+ Default - Right.*/
+@property (nonatomic) MenuItemsSide menuItemsSide;
+
+/*! Direction of menu item appearence. Default - FromTopToBottom.*/
+@property (nonatomic) MenuItemsAppearanceDirection menuItemsAppearanceDirection;
 
 /*!
  @abstract
