@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = "ContextMenu.iOS"
-  spec.version = "1.0.0"
+  spec.version = "1.1.0"
 
   spec.homepage = "https://github.com/Yalantis/Context-Menu.iOS"
   spec.summary = "Context menu with animated presentation from superView's edge"
@@ -12,7 +12,7 @@ Pod::Spec.new do |spec|
   spec.platform = :ios, '7.1'
   spec.ios.deployment_target = '7.1'
 
-  spec.source = { :git => "https://github.com/Yalantis/Context-Menu.iOS.git", :tag => "1.0.0" }
+  spec.source = { :git => "https://github.com/Yalantis/Context-Menu.iOS.git", :tag => "1.1.0" }
 
   spec.requires_arc = true
 
