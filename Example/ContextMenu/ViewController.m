@@ -78,6 +78,9 @@ static NSString *const menuCellIdentifier = @"rotationCell";
         self.contextMenuTableView.animationDuration = 0.15;
         //optional - implement custom YALContextMenuTableView custom protocol
         self.contextMenuTableView.yalDelegate = self;
+        //optional - implement menu items layout
+        self.contextMenuTableView.menuItemsSide = Right;
+        self.contextMenuTableView.menuItemsAppearanceDirection = FromTopToBottom;
         
         //register nib
         UINib *cellNib = [UINib nibWithNibName:@"ContextMenuCell" bundle:nil];
