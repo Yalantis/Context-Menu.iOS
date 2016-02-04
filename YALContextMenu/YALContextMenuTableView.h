@@ -71,7 +71,7 @@ typedef NS_ENUM(NSInteger, MenuItemsAppearanceDirection) {
  
  @param YES or NO weather you want appearance animated or not.
  */
-- (void)showInView:(UIView *)superview withEdgeInsets:(UIEdgeInsets)edgeInsets animated:(BOOL)animated;
+- (void)showWithAnimated:(BOOL)animated;
 
 /*!
  @abstract
