@@ -39,6 +39,7 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
 @property (nonatomic, strong) UITableViewCell<YALContextMenuCell> *selectedCell;
 @property (nonatomic, strong) NSIndexPath *dismissalIndexpath;
 @property (nonatomic) AnimatingState animatingState;
+@property (nonatomic, strong) UIWindow *window;
 
 @end
 
@@ -64,15 +65,22 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
         self.menuItemsSide = Right;
         self.menuItemsAppearanceDirection = FromTopToBottom;
         
-        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7f];
+        self.window = [[UIWindow alloc] init];
+        self.window.windowLevel = UIWindowLevelStatusBar + 1.0f;
+        self.window.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7f];
+        self.frame = self.window.frame;
+        
+//        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7f];
+        self.backgroundColor = [UIColor clearColor];
         self.separatorColor = [UIColor colorWithRed:181.0/255.0 green:181.0/255.0 blue:181.0/255.0 alpha:0];
         self.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero]; //Zero rect footer to clear empty rows UITableView draws
+//        [self.window addSubview:self];
     }
     return self;
 }
 
 #pragma mark - Show / Dismiss
-- (void)showInView:(UIView *)superview withEdgeInsets:(UIEdgeInsets)edgeInsets animated:(BOOL)animated {
+- (void)showWithAnimated:(BOOL)animated{
     if (self.animatingState!=Stable) {
         return;
     }
@@ -83,16 +91,17 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
     
     self.dismissalIndexpath = nil;
     
-    [superview addSubViewiew:self withSidesConstrainsInsets:edgeInsets];
+    [self.window addSubview:self];
+    self.window.hidden = NO;
     
     if (animated) {
         self.animatingState = Showing;
-        self.alpha = 0;
+        self.window.alpha = 0;
         
         [self setUserInteractionEnabled:NO];
         
         [UIView animateWithDuration:self.animationDuration animations:^{
-            self.alpha = 1;
+            self.window.alpha = 1;
         } completion:^(BOOL finished) {
             [self show:YES visibleCellsAnimated:YES];
             [self setUserInteractionEnabled:YES];
@@ -231,6 +240,7 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
     BOOL clockwise = self.menuItemsSide == Right ? NO : YES;
         [self show:NO cell:self.selectedCell animated:YES direction:direction clockwise:clockwise completion:^(BOOL completed) {
          [self removeFromSuperview];
+            self.window.hidden = YES;
         if ([self.yalDelegate respondsToSelector:@selector(contextMenuTableView:didDismissWithIndexPath:)]) {
             [self.yalDelegate contextMenuTableView:self didDismissWithIndexPath:[self indexPathForCell:self.selectedCell]];
         }
@@ -248,7 +258,7 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
 
 - (void)prepareCellForShowAnimation:(UITableViewCell<YALContextMenuCell> *)cell {
     
-    [self resetAnimatedIconForCell:cell];
+//    [self resetAnimatedIconForCell:cell];
     
     Direction direction;
     BOOL clockwise;
