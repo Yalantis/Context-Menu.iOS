@@ -1,6 +1,7 @@
 # Context-Menu.iOS
 
-#### You can easily add awesome animated context menu to  your app.
+## You can easily add awesome animated context menu to  your app.
+
 Made in [![Yalantis](https://raw.githubusercontent.com/Yalantis/FoldingTabBar.iOS/master/Example/Example/Resources/Images/badge_orage_shadow.png)](https://yalantis.com/?utm_source=github)
 
 Check this [project on dribbble] (https://dribbble.com/shots/1785274-Menu-Animation-for-Additional-Functions?list=users&offset=17)
@@ -34,12 +35,20 @@ Check this [project on Behance] (https://www.behance.net/gallery/20411445/Mobile
 </tr>
 </table>
 
-####[CocoaPods](http://cocoapods.org)
+# 
+
+## Installation
+
+### [CocoaPods](http://cocoapods.org)
 ```ruby
 pod 'ContextMenu.iOS', '~> 1.1.0'
 ```
 
-####Usage
+### Manually
+
+Copy all files from `YALContextMenu` folder to your xcode project.
+
+## Usage
 
 You are welcome to see the sample of the project for fully operating sample in the Example folder.
 
@@ -112,7 +121,7 @@ withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 }
 ```
 
-### Customisation
+## Customisation
 
 To customise menu items side position you can specify a 'menuItemsSide' property. When it set to 'Right' the first cell will be opened from right to left and selected cell will be closed vice versa and when it set to 'Left' the first cell will be opened from left to right and selected cell will be closed vice versa. Default - Right. 
 
@@ -122,21 +131,21 @@ To customise cell set up your custom drawables in the animated icon. Actually th
 
 animationDuration is to be used for animation speed in seconds.
 
-### Compatibility
+## Compatibility
 
 iOS 7,
 iOS 8,
 iOS 9
 
-##### Version: 1.1.0
+**Version: 1.1.0**
 
-### Let us know!
+## Let us know!
 
 We’d be really happy if you sent us links to your projects where you use our component. Just send an email to github@yalantis.com And do let us know if you have any questions or suggestion regarding the animation. 
 
 P.S. We’re going to publish more awesomeness wrapped in code and a tutorial on how to make UI for iOS (Android) better than better. Stay tuned!
 
-### License
+## License
 
 Copyright 2015, Yalantis
 
