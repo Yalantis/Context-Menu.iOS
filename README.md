@@ -50,6 +50,8 @@ Copy all files from `YALContextMenu` folder to your xcode project.
 
 ## Usage
 
+### Objective-C
+
 You are welcome to see the sample of the project for fully operating sample in the Example folder.
 
 * Add folder YALContextMenu to your project.
@@ -119,6 +121,14 @@ withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 [self.contextMenuTableView updateAlongsideRotation];
 
 }
+```
+
+### Swift
+
+You should add the following line to your bridging header:
+
+``` objective-c
+@import ContextMenu_iOS;
 ```
 
 ## Customisation
