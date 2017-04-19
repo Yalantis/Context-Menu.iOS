@@ -88,7 +88,8 @@ static NSString *const menuCellIdentifier = @"rotationCell";
     }
 
     // it is better to use this method only for proper animation
-    [self.contextMenuTableView showInView:self.navigationController.view withEdgeInsets:UIEdgeInsetsZero animated:YES];
+//    [self.contextMenuTableView showInView:self.navigationController.view withEdgeInsets:UIEdgeInsetsZero animated:YES];
+    [self.contextMenuTableView showWithAnimated:YES];
 }
 
 #pragma mark - Local methods
