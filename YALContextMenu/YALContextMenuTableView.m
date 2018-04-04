@@ -82,6 +82,7 @@ typedef NS_ENUM(NSUInteger, AnimatingState) {
     }
     
     self.dismissalIndexpath = nil;
+    self.frame = superview.bounds;
     
     [superview addSubViewiew:self withSidesConstrainsInsets:edgeInsets];
     
