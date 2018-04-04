@@ -33,14 +33,11 @@ static NSString *const menuCellIdentifier = @"rotationCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initiateMenuOptions];
     
-    // set custom navigationBar with a bigger height
-    [self.navigationController setValue:[[YALNavigationBar alloc]init] forKeyPath:@"navigationBar"];
+    [self initiateMenuOptions];
 }
 
-- (BOOL)prefersStatusBarHidden
-{
+- (BOOL)prefersStatusBarHidden {
     return YES;
 }
 
